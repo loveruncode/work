@@ -1,4 +1,4 @@
-    @include('layout.cdn')
+
     <title>@yield('title')</title>
 </head>
 <body>
