@@ -11,6 +11,7 @@ class Post extends Model
 
 
     protected $table = 'post';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'title',
         'slug',
@@ -20,5 +21,11 @@ class Post extends Model
         'excerpt',
         'content',
         'posted_at',
+        'category_id'
     ];
+ //// mot post se co 1 category
+    public function category(){
+
+        return $this->belongsTo(Category::class);
+    }
 }

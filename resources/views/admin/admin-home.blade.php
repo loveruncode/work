@@ -1,128 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <script src="/bootstrap-5.3.2-dist/css/bootstrap.min.css"></script>
+    <script src="/jquery.js"></script>
+    {{-- Toast js and toast css --}}
+    <link rel="stylesheet" href="/toast.css">
+    <script src="/toastjs.js"></script>
+    {{-- ------ --}}
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+
     <title>Admin Dashboard</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('bootstrap-4.0.0-dist/js/bootstrap.min.js') }}"></script>
-    <link href="{{ asset('bootstrap-4.0.0-dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="/admin/public/ckeditor/ckeditor.js"></script>
-    <style>
-         .nav-item a {
-        font-size: 1.5rem;
-        display: block;
-        padding: 0.5rem 1rem;
-        color: #000;
-        text-decoration: none;
-    }
-    .published-class {
-    color: rgb(46, 203, 73);
-}
-.draft-class {
-    color: rgb(230, 56, 56);
-}
-.position-sticky ul li a:hover{
-     background: rgb(228, 227, 227);
-}
+    <!-- Open Sans Font -->
+    <link href="/font.css" rel="stylesheet">
 
-    </style>
+    <!-- Material Icons -->
+    <link href="/icon.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="/icon2.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/app.css">
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-xl navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#">DASHBOARD</a>
+    <div class="grid-container">
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                  <a class="nav-link" href="{{route('dashboard')}}">Quản trị</a>
-            </li>
-            <li class="nav-item">
-                    <a class="nav-link" href="{{ route('getvalue-table-admin') }}">Bảng Dữ Liệu</a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-                <img class="m-2 " src="{{asset('storage/images/solana.png')}}" alt="anh dai dien" height="50px" width="50px">
-                <p class="m-1">Name....</p>
-          </form>
-        </div>
-      </nav>
-
-
-
-
-
-<div class="container-fluid">
-    <div class="row">
-        <nav id="sidebar" class="col-md-3 col-lg-2  bg-light sidebar">
-            <div class="position-sticky">
-                <ul class="nav flex-column px-3">
-                    <li class="mt-2 nav-item">
-                        <a class="mt-3" href="#">
-                            Profile
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" >
-                        Danh Mục Sản Phẩm
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            Loading ...
-                        </a>
-                    </li>
-                    <li class=" mt-4 nav-item">
-                        <div>
-                            <a style="width:120px" class=" btn btn-primary " href="{{route('add-post')}}">Add Post</a>
-                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button class=" mt-3 btn-lg btn btn-danger" type="submit">Log out</button>
-                        </form>
-                    </li>
-                </ul>
+        <!-- Header -->
+        <header class="header">
+            <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-icons-outlined">menu</span>
             </div>
-        </nav>
-        <main class="col-md-8 ms-sm-auto col-lg-10 px-md-5">
-            @yield('table')
+            <div class="header-left">
+                <span class="material-icons-outlined">search</span>
+            </div>
+            <div class="header-right">
+                {{-- <span class="material-icons-outlined">notifications</span>
+          <span class="material-icons-outlined">email</span> --}}
+
+                <p><span class=" m-1 material-icons-outlined">account_circle</span></p>
+
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <span class="material-icons-outlined">mood</span> ADMIN
+                </div>
+                <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+            </div>
+
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <a href="{{ route('getvalue-table-admin') }}">
+                        <span class="material-icons-outlined">dashboard</span> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{{ route('add-post') }}">
+                        <span class="material-icons-outlined">add</span> Add New Post
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="/admin/category">
+                        <span class="material-icons-outlined">category</span> Category
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="/admin/account">
+                        <span class="material-icons-outlined">person</span> Profile
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="{{route('views')}}">
+                        <span class="material-icons-outlined">visibility</span> Views
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#">
+                        <span class="material-icons-outlined">poll</span> Reports
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="#">
+                        <span class="material-icons-outlined">settings</span> Settings
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="btn btn-danger " type="submit">Log out</button>
+                    </form>
+                </li>
+            </ul>
+        </aside>
+        <!-- End Sidebar -->
+
+        <!-- Main -->
+        <main class="main-container">
+            <div class="main-title">
+                <h2>@yield('title', 'DASHBOARD')</h2>
+            </div>
+            @yield('content')
+            {{-- day la phan them vao  datatablse --}}
+
         </main>
+        <!-- End Main -->
+
     </div>
-</div>
-<script>
-@if(session('success'))
-    Toastify({
-        text: "{{ session('success') }}",
-        duration: 3000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: true,
-        gravity: "top",
-        position: "left",
-        stopOnFocus: true,
-        style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-        },
-        onClick: function(){}
-    }).showToast();
+
+    <!-- Scripts -->
+    <!-- Custom JS -->
+    <script src="/scripts.js"></script>
+    @if (session('success'))
+        <script>
+            Toastify({
+                text: "{{ session('success') }}",
+                duration: 3000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                },
+                onClick: function() {}
+            }).showToast();
+        </script>
+    @endif
+    @if (session('error'))
+    <script>
+        Toastify({
+            text: "{{ session('error') }}",
+            duration: 3000,
+            destination: "https://github.com/apvarun/toastify-js",
+            newWindow: true,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right, #ff4500, #ff0000)",
+                color: "#ffffff" // Chữ màu trắng
+            },
+            onClick: function() {}
+        }).showToast();
+    </script>
 @endif
-</script>
 
 
 </body>
+
 </html>
-
-
-
-

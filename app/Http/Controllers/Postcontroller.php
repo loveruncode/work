@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Datatables;
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Contracts\Cache\Store;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class Postcontroller extends Controller
@@ -20,8 +23,8 @@ class Postcontroller extends Controller
 
     public function Postadd()
     {
-
-        return  view('admin.add-post');
+        $category = Category::all();
+        return  view('admin.add-post')->with('category', $category);
     }
 
     public function insert(Request $request)
@@ -36,7 +39,7 @@ class Postcontroller extends Controller
         $image = $request->file('image');
         $imageName = $image->getClientOriginalName();
         Storage::putFileAs('public/images/', $image, $imageName);
-
+        $category_id = $request->input('category_id');
         $title = $request->input('title');
         $status = $request->input('status');
         $content = $request->input('content');
@@ -52,15 +55,16 @@ class Postcontroller extends Controller
         $post->slug = $slug;
         $post->excerpt = $excerpt;
         $post->content = $content;
+        $post->category_id = $category_id;
         $post->save();
+        // dd($post);
         return redirect()->back()->with('success', 'Bài viết đã được thêm thành công');
     }
 
     public function getValueforTable()
     {
-        $post = Post::latest()->get();
-        return view('layout.table-admin')->with('post', $post);
-
+        $ps = Post::all();
+        return  view('layout.table-admin', compact('ps'));
     }
     public function delete($id)
     {
@@ -74,8 +78,9 @@ class Postcontroller extends Controller
 
 
     public function update($id){
-        return view ('layout.update-post')->with('id', $id);
+        return view ('layout.update-post' ,compact('id'));
     }
+
     public function updateForm(Request $request, $id){
 
          $post = Post::select('title','status','is_featured','image', 'excerpt', 'content')->find($id);
@@ -107,13 +112,33 @@ class Postcontroller extends Controller
 
     public function deleteSelect(Request $request)
     {
-        $ids = $request->ids;
-        Post::whereIn('id', $ids)->delete();
-
-        return redirect()->back()->with('success', 'Đã xoá các mục đã chọn');
-
+            $bien  = print_r($request->ck);
+            return $bien;
     }
 
-    
+
+         public function getViews(){
+
+            $posts = Post::with('category')->get();
+            return view('layout.postview', compact('posts'));
+
+         }
+
+
+
+         public function viewAccount(){
+
+            $user = auth()->user();
+            $username = $user->name;
+            $email = $user->email;
+            $role = $user->role;
+            return view ('admin.user-view')->with([
+                'users' => $username,
+                'email' => $email,
+                'role' => $role,
+            ]);
+         }
+
+
 }
 

@@ -1,16 +1,11 @@
-@extends('layout.app-post')
+@extends('admin.admin-home')
 
-
-@section('title', 'Update Post')
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 @section('content')
 <div class="container">
-    <h2>Update Post</h2>
+    <h4>@yield('title', 'Update post')</h4>
 
     <form action="/admin/updateForm/{{$id}}" method="POST" enctype="multipart/form-data">
         @csrf
-
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title" name="title" >
@@ -50,7 +45,7 @@
         <a class="btn btn-success " href="{{route('dashboard')}}">Back To DashBoard</a>
     </form>
 
-    @if(session('success'))
+    {{-- @if(session('success'))
     <script>
         Toastify({
             text: "{{ session('success') }}",
@@ -67,6 +62,8 @@
             onClick: function(){}
         }).showToast();
     </script>
-@endif
-
+@endif --}}
+<script>
+    CKEDITOR.replace('content');
+</script>
 @endsection

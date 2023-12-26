@@ -17,12 +17,24 @@ class LoginCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (Auth::check()) {
+            $user = Auth::user();
 
-            if(Auth::check()){
+            if ($user->role === 'admin') {
+                $request->merge(['user' => $user->name]);
                 return $next($request);
-            }else{
-                return redirect()->route('login')->with('error','vui Lòng hãy đăng nhập');
-            }
+            } elseif ($user->role === 'employee') {
+                $allowedRoutes = ['views', 'viewsAccount', 'logout'];
 
+                if (in_array($request->route()->getName(), $allowedRoutes)) {
+                    $request->merge(['user' => $user->name]);
+                    return $next($request);
+                } else {
+                    return redirect()->route('views')->with('error', 'Bạn không có quyền truy cập.');
+                }
+            }
+        }
+
+        return redirect()->route('login')->with('error', 'Vui lòng đăng nhập!');
     }
 }
