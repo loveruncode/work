@@ -9,13 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class DashboardAdmin extends Controller
 {
     //
-    
+
 
 
         public function dashboard(){
 
+            if (Auth::check()) {
 
-            return view ('admin.admin-home');
+                $user = Auth::user();
+                return view('admin.admin-home',['user' => $user]);
+            }
         }
 
 

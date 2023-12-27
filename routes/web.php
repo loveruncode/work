@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardAdmin;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Postcontroller;
@@ -27,16 +28,24 @@ Route::post('/register', [LoginController::class, 'check_dangky'])->name('regist
 Route::group(['prefix' => 'admin', 'middleware' => 'check'], function () {
     Route::get('/dashboard', [DashboardAdmin::class, 'dashboard'])->name('dashboard');
     Route::post('/dashboard-logout', [DashboardAdmin::class, 'logout'])->name('logout');
-   Route::get('/add-post', [Postcontroller::class,'Postadd'])->name('add-post');
+    Route::get('/add-post', [Postcontroller::class,'Postadd'])->name('add-post');
     Route::post('/insert-post', [Postcontroller::class, 'insert'])->name('insert-post');
     Route::get('/table-admin-get',[Postcontroller::class,'getValueforTable'])->name('getvalue-table-admin');
     Route::get('/table-admin',function(){return view ('layout.table-admin');})->name('table');
     route::post('/delete/{id}', [Postcontroller::class, 'delete'])->name('delete');
-    Route::post('/deleteSelect', [PostController::class, 'deleteSelect'])->name('deleteSelect');
     Route::get('/update/{id}',[Postcontroller::class,'update'])->name('getvalue-update-post');
     Route::post('/updateForm/{id}', [PostController::class, 'updateForm']);
-    ///// Users
+    Route::get('/category', [CategoryController::class, 'viewCategory'])->name('viewCategory');
+    Route::post('/category-add', [CategoryController::class, 'addCategory'])->name('add-category');
+    Route::get('/views', [Postcontroller::class, 'getViews'])->name('views');
+    Route::get('/account', [Postcontroller::class , 'viewAccount'])->name('viewsAccount');
+    Route::get('/UpdateCate/{id}', [CategoryController::class, 'updateCate'])->name('update-Category');
+    Route::post('/update-category/{id}', [CategoryController::class, 'updateFormCategory'])->name('update-category-form');
+     ///// Users
+    Route::post('update-password', [UserController::class, 'updatePassword'])->name('updatepassword');
 });
+
+
 
 
 

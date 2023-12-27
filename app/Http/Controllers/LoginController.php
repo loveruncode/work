@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Cache\RedisTagSet;
 use Illuminate\Http\Request;
+use Illuminate\Cache\RedisTagSet;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -23,9 +24,9 @@ class LoginController extends Controller
         $data = request()->all('email', 'password');
             if(auth()->attempt($data)){
 
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success','Đăng Nhập Thành Công');
             }else{
-                return redirect()->back();
+                return redirect()->back()->with('error', 'Đăng Nhập Thất Bại');
             }
 
     }
@@ -34,16 +35,22 @@ class LoginController extends Controller
     }
 
     public function check_dangky(){
-         request()->validate([
+
+
+        request()->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'password_confirm' => 'required|same:password',
-         ]);
-         $data = request()->all('name','email', 'password', 'password_confirm');
-        $data['password'] = bcrypt( request('password'));
-       User::create($data);
-       return redirect()->route('login')->with('success', 'Đăng ký thành công');
+            'role' => 'required',
+        ]);
+
+        $data = request()->all('name', 'email', 'password', 'password_confirm', 'role');
+        $data['password'] = Hash::make(request('password'));
+
+        User::create($data);
+
+        return redirect()->route('register')->with('success', 'Đăng ký thành công');
     }
 
 
