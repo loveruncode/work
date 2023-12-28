@@ -2,14 +2,12 @@
 
 namespace App\Services;
 use Illuminate\Support\Str;
-use App\Repositories\PostRepository;
+use App\interfaces\RepositoryInterface;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\PostValidate;
 class PostService {
 
     protected $Postrepository;
-   // day la noi ket noi voi controller
-     public function __construct(PostRepository $Postrepository)
+     public function __construct(RepositoryInterface $Postrepository)
      {
             $this->Postrepository = $Postrepository;
      }
@@ -20,10 +18,8 @@ class PostService {
      }
 
      public function deleteByID($id){
-
         return $this->Postrepository->delete($id);
      }
-
      public function insertDatatoPost(array $data){
 
         $validator  = Validator::make($data,[
@@ -61,7 +57,7 @@ class PostService {
         $imageName = 'image_' . time() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('storage/images'), $imageName);
         $data['image'] = $imageName;
-        $post = $this->Postrepository->updatePost($data,$id);
+        $post = $this->Postrepository->update($data,$id);
         return ['success' => true, 'post' => $post];
        }
      }

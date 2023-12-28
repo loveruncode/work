@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-use Datatables;
 use Illuminate\Http\Request;
 use App\Services\PostService;
 
@@ -53,7 +52,7 @@ class Postcontroller extends Controller
     {
         $data = $request->all();
         $result = $this->postService->updatePost($data, $id);
-        // dd($result);
+        dd($result);
         if (['success']) {
             return redirect()->back()->with('success', 'Bài viết đã được thay đổi thành công');
         } else {

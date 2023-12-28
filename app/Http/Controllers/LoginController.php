@@ -6,12 +6,9 @@ use App\Models\User;
 use App\Enums\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Cache\RedisTagSet;
 use Illuminate\Support\Facades\Hash;
-
 class LoginController extends Controller
 {
-
 
     public function home(){
         return view ('home');
@@ -28,7 +25,7 @@ class LoginController extends Controller
 
                 return redirect()->route('dashboard')->with('success','Đăng Nhập Thành Công');
             }else{
-                return redirect()->back()->with('error', 'Đăng Nhập Thất Bại');
+                return redirect()->back()->withErrors(['error' => 'Sai Tài Khoản hoặc Mật khẩu'])->withInput();
             }
 
     }
@@ -37,7 +34,6 @@ class LoginController extends Controller
     }
 
     public function check_dangky(Request $request){
-
 
         $request->validate([
             'name' => 'required',
@@ -49,9 +45,7 @@ class LoginController extends Controller
 
         $data = $request->only('name', 'email', 'password', 'password_confirm', 'role');
         $data['password'] = Hash::make($request->input('password'));
-
         User::create($data);
-
         return redirect()->route('register')->with('success', 'Đăng ký thành công');
 
 

@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/bootstrap-5.3.2-dist/css/bootstrap.min.css">
     <script src="/bootstrap-5.3.2-dist/css/bootstrap.min.css"></script>
+    <script src="/jquery.js"></script>
+    <script src="/toastjs.js"></script>
     <title>@yield('title')</title>
 </head>
 <style>
@@ -45,6 +47,7 @@
     </div>
   </footer>
 
+  
 </body>
 </html>
 

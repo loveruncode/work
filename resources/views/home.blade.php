@@ -43,10 +43,10 @@
             <div class="col-12">
               <div class="d-grid">
                 <button class="btn btn-primary btn-lg" type="submit">Log in now</button>
-                @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
+                @if($errors->any())
+            <div class="alert alert-danger">
+                {{ $errors->first() }}
+             </div>
                 @endif
               </div>
             </div>

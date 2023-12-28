@@ -12,15 +12,12 @@ class Category extends Model
 
     protected $table = 'category';
 
-    protected $fillable = [
-         'name',
-         'description',
-         'status'
-
-    ];
-
-
-
+    protected $guarded = [];
+    // protected $fillable = [
+    //      'name',
+    //      'status',
+    //         'slug'
+    // ];
      public function post(){
 
         return $this->HasMany(Post::class);

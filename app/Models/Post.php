@@ -12,18 +12,8 @@ class Post extends Model
 
     protected $table = 'posts';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'title',
-        'slug',
-        'status',
-        'is_featured',
-        'image',
-        'excerpt',
-        'content',
-        'posted_at',
-        'category_id'
-    ];
- //// mot post se co 1 category
+    protected $guarded = ['users'];
+
     public function category(){
 
         return $this->belongsTo(Category::class);

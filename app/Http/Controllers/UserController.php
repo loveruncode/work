@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
 class UserController extends Controller
 {
          public function getName(){
@@ -16,7 +15,6 @@ class UserController extends Controller
            return view('admin.admin-home', compact('username'));
          }
          public function updatePassword(Request $request){
-
             $user = Auth::user();
             if (!Hash::check($request->current_password, $user->password)) {
                 return back()->with('error', 'Mật khẩu hiện tại không đúng. Hãy nhập lại.');
