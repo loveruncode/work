@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Enums\UserRole;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Cache\RedisTagSet;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+
 
     public function home(){
         return view ('home');
@@ -20,7 +23,6 @@ class LoginController extends Controller
             'password' => 'required',
 
         ]);
-
         $data = request()->all('email', 'password');
             if(auth()->attempt($data)){
 
@@ -34,23 +36,25 @@ class LoginController extends Controller
         return view ('register');
     }
 
-    public function check_dangky(){
+    public function check_dangky(Request $request){
 
 
-        request()->validate([
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'password_confirm' => 'required|same:password',
-            'role' => 'required',
+            'role' => ['required', Rule::in([UserRole::employee, UserRole::admin])],
         ]);
 
-        $data = request()->all('name', 'email', 'password', 'password_confirm', 'role');
-        $data['password'] = Hash::make(request('password'));
+        $data = $request->only('name', 'email', 'password', 'password_confirm', 'role');
+        $data['password'] = Hash::make($request->input('password'));
 
         User::create($data);
 
         return redirect()->route('register')->with('success', 'Đăng ký thành công');
+
+
     }
 
 

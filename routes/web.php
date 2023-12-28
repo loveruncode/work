@@ -41,8 +41,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'check'], function () {
     Route::get('/account', [Postcontroller::class , 'viewAccount'])->name('viewsAccount');
     Route::get('/UpdateCate/{id}', [CategoryController::class, 'updateCate'])->name('update-Category');
     Route::post('/update-category/{id}', [CategoryController::class, 'updateFormCategory'])->name('update-category-form');
+    Route::post('/deleteSelect', [CategoryController::class, 'deleteSelect'])->name('deleteSelect');
      ///// Users
     Route::post('update-password', [UserController::class, 'updatePassword'])->name('updatepassword');
+
 });
 
 

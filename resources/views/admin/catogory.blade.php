@@ -22,6 +22,8 @@
     </form>
 </div>
     <div class="mt-2 container">
+        <form action="/admin/deleteSelect"  method="post">
+            @csrf
         @foreach ($cate as $item)
         <table class="table table-bordered ">
              <thead>
@@ -30,6 +32,7 @@
                     <th>Slug:</th>
                     <th>Status:</th>
                     <th>Custom(Update):</th>
+                    <th><input id="select_all" type="checkbox">Selected :</th>
                 </tr>
              </thead>
              <tbody>
@@ -44,11 +47,22 @@
                      <span class="badge bg-secondary text-white">{{ $item->status }}</span>
                     @endif</td>
                    <td><a href="/admin/UpdateCate/{{$item->id}}" id="showForm" class="btn btn-success "><span class="material-icons-outlined">update</span></a></td>
+                    <td><input value="{{$item->id}}" class="checkbox_id" name="ids[{{$item->id}}]" type="checkbox"></td>
                  </tr>
              </tbody>
         </table>
         @endforeach
+        <button class=" mb-4 btn btn-danger " type="submit">Delete Seleted</button> <br>
+    </form>
     </div>
-    
+ <script>
+      $(document).ready(function(){
+            $('#select_all').change(function(){
+                let selectAll = $(this).prop('checked');
+                $('.checkbox_id').prop('checked', selectAll);
+            });
+
+        });
+</script>
 @endsection
 

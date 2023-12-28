@@ -9,7 +9,7 @@
             {{-- day la cho th em table --}}
 
                 <h2>Table</h2>
-                <table class="table table-striped">
+                <table id="table" class="table table-striped">
                     <thead>
                         <tr>
                             <th >Title</th>
@@ -42,7 +42,7 @@
                             </td>
                            <td><img src="{{asset('storage/images/'.$item->image)}}" alt="hinh anh" width="100px" height="100px"></td>
                             <td>{{$item->excerpt}}</td>
-                            <td>{{$item->content}}</td>
+                            <td>{!!$item->content!!}</td>
                             <td>{{$item->created_at}}</td>
                             <td>
                                  <form action="/admin/delete/{{$item->id}}" method="post">
@@ -57,48 +57,12 @@
                         @endforeach
                     </tbody>
                 </table>
-                    {{-- select all  --}}
-
 
             </div>
-             <script>
-              //// this is selected all
-            //   $(document).ready(function() {
-            // $('#select_all').change(function() {
-            //     let selectAll = $(this).prop('checked');
-            //     $('.checkbox_id').prop('checked', selectAll);
-            // });
+         <script>
 
-            //  });
-            //      $(document).ready(function() {
-            //     $('#datatables').DataTable();
-            //   });
          </script>
         @endsection
 
 
 
-
-
-{{--
-@foreach ($post as $value)
-<tr>
-    <td class="h5">{{ $value->title }}</td>
-    <td>{{$value->slug}}</td>
-    <td class="{{ $value->status == 'published' ? 'published-class' : 'draft-class' }}">
-        {{ $value->status }}
-    </td>
-
-    <td>{{ $value->is_featured ? 'Yes' : 'No' }}</td>
-    <td><img src="{{asset('storage/images/' .$value->image)}}" alt="hinh anh posts" width="100px" height="100px"></td>
-    <td>{{ $value->excerpt }}</td>
-    <td>{!!$value->content!!}</td>
-    <td>{{ $value->created_at }}</td>
-   <td><a class="btn btn-primary " href='{{'/admin/update/'.$value->id}}'>Update</a></td>
-    <td><form action="{{'/admin/delete/'. $value->id}}" method="post">
-        @csrf<button type="submit" class="btn btn-danger ">Delete</button>
-    </form></td>
-    <td><a class="btn btn-warning  " href="#">View</a></td>
-    <td><input value="{{$value->id}}" class="checkbox_id" name="ids[{{$value->id}}]"  type="checkbox"></td>
-</tr>
-@endforeach --}}

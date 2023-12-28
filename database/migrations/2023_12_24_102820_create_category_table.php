@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('category', function(Blueprint $table){
             $table->increments('id');
             $table->string('name');
-            $table->longText('description');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
 
         });
+
+
     }
 
     /**
@@ -26,13 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::create('category', function(Blueprint $table){
-            $table->increments('id');
-            $table->string('name');
-            $table->longText('description');
-            $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->timestamps();
-
+        Schema::table('category', function(Blueprint $table){
+            
         });
     }
 };
