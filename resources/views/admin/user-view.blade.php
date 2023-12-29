@@ -7,7 +7,7 @@
         @csrf
         <div class="profile-card text-center shadow bg-light p-4 my-5 rounded-3">
             <div class="profile-photo shadow">
-                <img src="/storage/images/ban.jpg" alt="profile Photo" class="img-fluid" height="22%" width="22%">
+                <img src="{{asset('/storage/images/ban.jpg')}}" alt="profile Photo" class="img-fluid" height="22%" width="22%">
             </div>
             <h3 class="pt-3 text-dark">Name: {{$users}}</h3>
             <p class="text-secondary">Email : {{$email}}</p>

@@ -18,16 +18,16 @@
 
     <title>Admin Dashboard</title>
     <!-- Open Sans Font -->
-    <link href="/font.css" rel="stylesheet">
+    <link href="{{asset('/font.css')}}" rel="stylesheet">
 
     <!-- Material Icons -->
-    <link href="/icon.css" rel="stylesheet">
+    <link href="{{asset('/icon.css')}}" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="/icon2.css">
+    <link rel="stylesheet" href="{{asset('/icon2.css')}}">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="{{asset('/app.css')}}">
 </head>
 
 <body>
@@ -133,7 +133,7 @@
                 close: true,
                 gravity: "top", // `top` or `bottom`
                 position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
+                stopOnFocus: true, 
                 style: {
                     background: "linear-gradient(to right, #00b09b, #96c93d)",
                 },
@@ -149,12 +149,12 @@
                 destination: "https://github.com/apvarun/toastify-js",
                 newWindow: true,
                 close: true,
-                gravity: "top", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
                 style: {
                     background: "linear-gradient(to right, #ff4500, #ff0000)",
-                    color: "#ffffff" // Chữ màu trắng
+                    color: "#ffffff"
                 },
                 onClick: function() {}
             }).showToast();
