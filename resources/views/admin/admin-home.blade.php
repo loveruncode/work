@@ -10,8 +10,11 @@
     {{-- Toast js and toast css --}}
     <link rel="stylesheet" href="/toast.css">
     <script src="/toastjs.js"></script>
-    {{-- ------ --}}
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    <script src="/ckfinder/ckfinder.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    {{-- ------ --}}
 
     <title>Admin Dashboard</title>
     <!-- Open Sans Font -->
@@ -79,7 +82,7 @@
                     </a>
                 </li>
                 <li class="sidebar-list-item">
-                    <a href="{{route('views')}}">
+                    <a href="{{ route('views') }}">
                         <span class="material-icons-outlined">visibility</span> Views
                     </a>
                 </li>
@@ -118,6 +121,7 @@
 
     <!-- Scripts -->
     <!-- Custom JS -->
+    <script src="{{asset('parsley.js')}}"></script>
     <script src="/scripts.js"></script>
     @if (session('success'))
         <script>
@@ -138,26 +142,25 @@
         </script>
     @endif
     @if (session('error'))
-    <script>
-        Toastify({
-            text: "{{ session('error') }}",
-            duration: 3000,
-            destination: "https://github.com/apvarun/toastify-js",
-            newWindow: true,
-            close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "linear-gradient(to right, #ff4500, #ff0000)",
-                color: "#ffffff" // Chữ màu trắng
-            },
-            onClick: function() {}
-        }).showToast();
-    </script>
-@endif
-
-
+        <script>
+            Toastify({
+                text: "{{ session('error') }}",
+                duration: 3000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "linear-gradient(to right, #ff4500, #ff0000)",
+                    color: "#ffffff" // Chữ màu trắng
+                },
+                onClick: function() {}
+            }).showToast();
+        </script>
+    @endif
+    @stack('scripts')
 </body>
 
 </html>

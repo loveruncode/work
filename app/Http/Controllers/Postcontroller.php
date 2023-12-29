@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\PostService;
+use App\DataTables\PostDataTable;
 
 class Postcontroller extends Controller
 {
@@ -21,6 +22,7 @@ class Postcontroller extends Controller
     {
         $data = $request->all();
         $result = $this->postService->insertDatatoPost($data);
+
         if ($result['success']) {
             return redirect()->back()->with('success', 'Bài viết đã được thêm thành công');
         } else {
@@ -28,10 +30,11 @@ class Postcontroller extends Controller
         }
     }
 
-    public function getValueforTable()
+    public function getValueforTable(PostDataTable $dataTable)
     {
-        $ps = $this->postService->getPostAll();
-        return  view('layout.table-admin', compact('ps'));
+        return $dataTable->render('layout.table-admin');
+        // $ps = $this->postService->getPostAll();
+        // return  view('layout.table-admin', compact('ps'));
     }
     public function delete($id)
     {

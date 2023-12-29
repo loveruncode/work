@@ -10,6 +10,7 @@ interface RepositoryInterface{
     public function update($id, $data);
     public function getCategorytoView();
     public function getCategoryForPost();
+    
 }
 
 ?>

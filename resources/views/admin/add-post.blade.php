@@ -61,13 +61,12 @@
             <button type="submit" class="btn btn-primary">Create Post</button>
             <a class="btn btn-success " href="{{ route('dashboard') }}">Back To DashBoard</a>
         </form>
-
         <script>
-             CKEDITOR.replace('content');
+           CKEDITOR.replace( 'content', {
+        filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+         filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        });
         </script>
-
-
-
     @endsection
 
 

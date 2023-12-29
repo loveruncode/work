@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\Category;
 use App\Models\Post;
 use App\interfaces\RepositoryInterface;
+
+
 class PostRepository implements RepositoryInterface
 {
 
@@ -17,7 +19,7 @@ class PostRepository implements RepositoryInterface
 
     public function getall()
     {
-        return $this->post->all();
+        return  $this->post->all();
     }
     public function delete($id)
     {
