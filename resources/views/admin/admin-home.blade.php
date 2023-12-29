@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="/bootstrap-5.3.2-dist/css/bootstrap.min.css">
-    <script src="/bootstrap-5.3.2-dist/css/bootstrap.min.css"></script>
-    <script src="/jquery.js"></script>
+    <link rel="stylesheet" href="{{asset('/bootstrap-5.3.2-dist/css/bootstrap.min.css')}}">
+    <script src="{{asset('/bootstrap-5.3.2-dist/css/bootstrap.min.css')}}"></script>
+    <script src="{{asset('/jquery.js')}}"></script>
     {{-- Toast js and toast css --}}
-    <link rel="stylesheet" href="/toast.css">
-    <script src="/toastjs.js"></script>
+    <link rel="stylesheet" href="{{asset('/toast.css')}}">
+    <script src="{{asset('/toastjs.js')}}"></script>
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
-    <script src="/ckfinder/ckfinder.js"></script>
+    <script src="{{asset('/ckfinder/ckfinder.js')}}"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     {{-- ------ --}}

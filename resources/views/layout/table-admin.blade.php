@@ -8,10 +8,8 @@
                 @yield('title', 'Lists')
                 <h2>Table</h2>
                 {!! $dataTable->table() !!}
-        
+
             </div>
-
-
         @endsection
 
         @push('scripts')
