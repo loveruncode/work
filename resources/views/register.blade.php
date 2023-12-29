@@ -47,8 +47,8 @@
               <div class="col-12">
                 <div class="form-floating mb-3">
                     <select name="role" class="form-control" required>
-                        <option value="{{ \App\Enums\UserRole::admin }}">Admin</option>
-                        <option value="{{ \App\Enums\UserRole::employee }}">Employee</option>
+                        <option value="{{$admin}}">Admin</option>
+                        <option value="{{$employee}}">Employee</option>
                     </select>
                     <label for="role" class="form-label">Role</label>
                 </div>

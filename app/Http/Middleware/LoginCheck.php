@@ -15,7 +15,7 @@ class LoginCheck
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    
+
 
     public function handle(Request $request, Closure $next): Response
     {
@@ -27,7 +27,7 @@ class LoginCheck
                     $request->merge(['user' => $user->name]);
                     return $next($request);
                 case UserRole::employee:
-                    $allowedRoutes = ['views', 'viewsAccount', 'logout'];
+                    $allowedRoutes = ['views', 'viewsAccount', 'logout', 'dashboard'];
                     if (in_array($request->route()->getName(), $allowedRoutes)) {
                         $request->merge(['user' => $user->name]);
                         return $next($request);

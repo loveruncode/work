@@ -18,7 +18,6 @@ class LoginController extends Controller
         request()->validate([
             'email' => 'required|email|exists:users,email',
             'password' => 'required',
-
         ]);
         $data = request()->all('email', 'password');
             if(auth()->attempt($data)){
@@ -30,7 +29,9 @@ class LoginController extends Controller
 
     }
     public function dangky(){
-        return view ('register');
+        $admin = UserRole::admin;
+        $employee = UserRole::employee;
+        return view ('register', compact('admin', 'employee'));
     }
 
     public function check_dangky(Request $request){

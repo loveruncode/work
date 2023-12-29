@@ -63,7 +63,7 @@
             });
 
         });
-        console.log('hello');
+       
 </script>
 @endsection
 
