@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Middleware\Authenticate;
-use App\Enums\UserRole;
+use App\Enum\UserRoleEnum;
 class LoginCheck
 {
     /**
@@ -21,12 +21,11 @@ class LoginCheck
     {
         if (Auth::check()) {
             $user = Auth::user();
-
             switch ($user->role) {
-                case UserRole::admin:
+                case UserRoleEnum::Admin:
                     $request->merge(['user' => $user->name]);
                     return $next($request);
-                case UserRole::employee:
+                case UserRoleEnum::Employee:
                     $allowedRoutes = ['views', 'viewsAccount', 'logout', 'dashboard'];
                     if (in_array($request->route()->getName(), $allowedRoutes)) {
                         $request->merge(['user' => $user->name]);

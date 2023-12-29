@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
-use App\Enums\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use App\Enum\UserRoleEnum;
 class LoginController extends Controller
 {
 
@@ -29,8 +30,8 @@ class LoginController extends Controller
 
     }
     public function dangky(){
-        $admin = UserRole::admin;
-        $employee = UserRole::employee;
+         $admin = UserRoleEnum::Admin;
+         $employee = UserRoleEnum::Employee;
         return view ('register', compact('admin', 'employee'));
     }
 
@@ -41,7 +42,7 @@ class LoginController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required',
             'password_confirm' => 'required|same:password',
-            'role' => ['required', Rule::in([UserRole::employee, UserRole::admin])],
+            'role' => ['required', Rule::in([UserRoleEnum::Admin, UserRoleEnum::Employee])],
         ]);
 
         $data = $request->only('name', 'email', 'password', 'password_confirm', 'role');
